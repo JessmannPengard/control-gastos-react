@@ -1,8 +1,18 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 import { formatearMoneda } from '../helpers'
 
-const ControlPresupuesto = ({ presupuesto }) => {
+const ControlPresupuesto = ({ presupuesto, gastos }) => {
 
+    const [disponible, setDisponible] = useState(0);
+    const [gastado, setGastado] = useState(0);
+
+    useEffect(() => {
+        const totalGastado = gastos.reduce((total, gasto) => gasto.cantidad + total, 0);
+        const totalDisponible = presupuesto - totalGastado;
+        setGastado(totalGastado);
+        setDisponible(totalDisponible);
+    }, [gastos])
 
 
     return (
@@ -15,10 +25,10 @@ const ControlPresupuesto = ({ presupuesto }) => {
                     <span>Presupuesto:</span> {formatearMoneda(presupuesto)}
                 </p>
                 <p>
-                    <span>Disponible:</span> {formatearMoneda(0)}
+                    <span>Disponible:</span> {formatearMoneda(disponible)}
                 </p>
                 <p>
-                    <span>Gastado:</span> {formatearMoneda(0)}
+                    <span>Gastado:</span> {formatearMoneda(gastado)}
                 </p>
             </div>
         </div>
