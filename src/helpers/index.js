@@ -15,7 +15,8 @@ export const formatearFecha = fecha => {
 }
 
 export const formatearMoneda = cantidad => {
-    return cantidad.toLocaleString('es-ES',
+    const cantidadAFormatear = cantidad ?? 0;
+    return cantidadAFormatear.toLocaleString('es-ES',
         {
             style: 'currency',
             currency: 'EUR'
